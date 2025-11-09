@@ -12,6 +12,8 @@ import adminRoutes from './src/routes/admin.route.js'; // NOVO: Rotas de Admin
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const productRouter = require('./src/routes/product.route');
+
 
 // Middleware para processar JSON
 app.use(express.json());
@@ -26,6 +28,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/restaurants', restaurantRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
-app.use('/api/v1/admin', adminRoutes); // NOVO: Montagem das Rotas de Admin
+app.use('/api/v1/admin', adminRoutes); 
+app.use('/api/v1/products', productRouter); // NOVO: Montagem das Rotas de Admin
 
 export default app;
