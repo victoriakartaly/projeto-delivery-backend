@@ -26,7 +26,6 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/restaurants', restaurantRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
-app.use('/api/v1/admin', adminRoutes); 
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/admin', adminRouter);
 export default app;

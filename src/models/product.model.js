@@ -4,10 +4,10 @@ const productSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String },
     price: { type: Number, required: true },
-    // Visualizar com fotos
+  
     imageUrl: { type: String }, 
     
-    // Relacionamento com o restaurante
+
     restaurant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Restaurant',

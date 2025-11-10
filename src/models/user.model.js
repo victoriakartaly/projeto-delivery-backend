@@ -26,13 +26,13 @@ const userSchema = new mongoose.Schema({
     cpf: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
     jobTitle: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
     sector: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
-    photo: { type: String }, // URL da foto
+    photo: { type: String },
     
 }, {
-    timestamps: true // Adiciona 'createdAt' e 'updatedAt'
+    timestamps: true 
 });
 
-// Middleware Mongoose para HASH de Senha antes de salvar
+
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
         next();
@@ -41,7 +41,7 @@ userSchema.pre('save', async function (next) {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Método para comparar a senha fornecida com a senha hash
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
