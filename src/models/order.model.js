@@ -25,10 +25,10 @@ const orderSchema = new mongoose.Schema({
         required: true,
     },
     
-    // Itens do carrinho
+    
     items: [orderItemSchema], 
     
-    // Acompanhamento em tempo real
+    
     status: {
         type: String,
         enum: ['pending', 'accepted', 'in_preparation', 'ready_for_delivery', 'on_the_way', 'delivered', 'cancelled'],
@@ -37,7 +37,7 @@ const orderSchema = new mongoose.Schema({
     
     totalPrice: { type: Number, required: true, default: 0.0 },
     
-    // Forma de pagamento
+    
     paymentMethod: {
         type: String,
         enum: ['card', 'pix', 'cash'],
