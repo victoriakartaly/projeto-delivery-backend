@@ -96,7 +96,6 @@ export const loginUser = async (req, res) => {
     }
 };
 
-// Função de exemplo para testar o perfil
 export const getMe = (req, res) => {
     res.status(200).json(req.user);
 };
