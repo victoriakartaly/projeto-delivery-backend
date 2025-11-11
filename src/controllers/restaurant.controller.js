@@ -11,7 +11,7 @@ export const searchRestaurants = async (req, res) => {
         const { query, category, location } = req.query;
         let filters = {};
 
-        // 1. Filtro por nome (query)
+        
         if (query) {
             filters.restaurantName = { $regex: query, $options: 'i' }; // Busca case-insensitive
         }
@@ -65,7 +65,7 @@ export const getRestaurantMenu = async (req, res) => {
     try {
         const { restaurantId } = req.params;
 
-        // Verifica se o restaurante existe
+        
         const restaurant = await Restaurant.findById(restaurantId);
 
         if (!restaurant) {
