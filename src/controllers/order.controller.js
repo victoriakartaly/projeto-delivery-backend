@@ -53,11 +53,11 @@ export const createOrder = async (req, res) => {
  */
 export const listRestaurantOrders = async (req, res) => {
     try {
-        const restaurantId = req.user.id; // ID do restaurante vem do token JWT
+        const restaurantId = req.user.id; 
 
         const orders = await Order.find({
             restaurant: restaurantId,
-            // O restaurante pode listar pedidos com status que não sejam 'Entregue'
+            
             status: { $ne: 'Entregue' } 
         })
         .populate('client', 'name email') 
