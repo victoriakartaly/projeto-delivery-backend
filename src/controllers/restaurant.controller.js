@@ -16,17 +16,17 @@ export const searchRestaurants = async (req, res) => {
             filters.restaurantName = { $regex: query, $options: 'i' }; // Busca case-insensitive
         }
 
-        // 2. Filtro por categoria
+        
         if (category) {
             filters.category = { $regex: category, $options: 'i' };
         }
 
-        // 3. Filtro por localização/endereço
+        
         if (location) {
             filters.address = { $regex: location, $options: 'i' };
         }
 
-        // Executa a busca no MongoDB
+        
         const restaurants = await Restaurant.find(filters)
             .select('-__v -password')
             .limit(100); 
@@ -75,7 +75,6 @@ export const getRestaurantMenu = async (req, res) => {
             });
         }
 
-        // Busca todos os produtos associados a este restaurantId
         const menu = await Product.find({ restaurant: restaurantId }).select('-__v');
 
         if (menu.length === 0) {
