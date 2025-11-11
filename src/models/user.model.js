@@ -2,27 +2,27 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
-    // Campos Comuns para todos os Usuários
+    
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phone: { type: String },
 
-    // Perfil de Acesso ( Clientes, Restaurantes, Administradores, Funcionários)
+    
     role: {
         type: String,
         enum: ['client', 'restaurant', 'admin', 'employee'],
         default: 'client'
     },
 
-    // Detalhes Específicos do Restaurante 
+   
     restaurantId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'Restaurant', 
         required: function() { return this.role === 'restaurant'; }
     },
     
-    // Detalhes Específicos do Funcionário/Admin 
+     
     cpf: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
     jobTitle: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
     sector: { type: String, required: function() { return this.role === 'employee' || this.role === 'admin'; } },
