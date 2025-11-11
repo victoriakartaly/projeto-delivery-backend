@@ -10,9 +10,9 @@ import Product from '../models/product.model.js';
 export const createOrder = async (req, res) => {
     try {
         const { restaurantId, items, paymentMethod, deliveryAddress, totalAmount } = req.body;
-        const clientId = req.user.id; // ID do cliente vem do token JWT
+        const clientId = req.user.id; 
 
-        // 1. Validação
+
         if (!restaurantId || !items || items.length === 0 || !paymentMethod || !totalAmount) {
             return res.status(400).json({ success: false, message: 'Dados do pedido incompletos.' });
         }
@@ -29,8 +29,8 @@ export const createOrder = async (req, res) => {
             items,
             totalAmount,
             paymentMethod,
-            deliveryAddress: deliveryAddress || restaurant.address, // Usa o endereço padrão do restaurante se não for fornecido um novo
-            status: 'Pedido Aceito' // Status inicial
+            deliveryAddress: deliveryAddress || restaurant.address, 
+            status: 'Pedido Aceito' 
         });
 
 
