@@ -1,11 +1,6 @@
 import Restaurant from '../models/restaurant.model.js';
 import Product from '../models/product.model.js'; 
 
-/**
- * @desc Busca restaurantes por nome, localização ou categoria.
- * @route GET /api/v1/restaurants/search
- * @access Public
- */
 export const searchRestaurants = async (req, res) => {
     try {
         const { query, category, location } = req.query;
@@ -13,7 +8,7 @@ export const searchRestaurants = async (req, res) => {
 
         
         if (query) {
-            filters.restaurantName = { $regex: query, $options: 'i' }; // Busca case-insensitive
+            filters.restaurantName = { $regex: query, $options: 'i' }; 
         }
 
         
@@ -56,11 +51,6 @@ export const searchRestaurants = async (req, res) => {
 };
 
 
-/**
- * @desc Cliente visualiza o cardápio de um restaurante específico.
- * @route GET /api/v1/restaurants/:restaurantId/menu
- * @access Public
- */
 export const getRestaurantMenu = async (req, res) => {
     try {
         const { restaurantId } = req.params;
