@@ -2,11 +2,7 @@ import Order from '../models/order.model.js';
 import Restaurant from '../models/restaurant.model.js'; 
 import Product from '../models/product.model.js'; 
 
-/**
- * @desc Cliente cria um novo pedido.
- * @route POST /api/v1/orders
- * @access Private (client)
- */
+
 export const createOrder = async (req, res) => {
     try {
         const { restaurantId, items, paymentMethod, deliveryAddress, totalAmount } = req.body;
@@ -46,11 +42,6 @@ export const createOrder = async (req, res) => {
     }
 };
 
-/**
- * @desc Restaurante lista todos os pedidos pendentes (ou todos)
- * @route GET /api/v1/orders
- * @access Private (restaurant)
- */
 export const listRestaurantOrders = async (req, res) => {
     try {
         const restaurantId = req.user.id; 
@@ -75,11 +66,7 @@ export const listRestaurantOrders = async (req, res) => {
     }
 };
 
-/**
- * @desc Restaurante aceita, recusa ou atualiza o status de um pedido.
- * @route PATCH /api/v1/orders/:id/status
- * @access Private (restaurant)
- */
+
 export const updateOrderStatus = async (req, res) => {
     try {
         const { id } = req.params;
@@ -114,11 +101,7 @@ export const updateOrderStatus = async (req, res) => {
     }
 };
 
-/**
- * @desc Cliente acompanha o status de um pedido (Requisito: tempo real)
- * @route GET /api/v1/orders/:id/status
- * @access Private (client)
- */
+
 export const getOrderStatus = async (req, res) => {
     try {
         const { id } = req.params;
