@@ -18,14 +18,11 @@ export const createOrder = async (req, res) => {
         }
 
       
-
-        // 2. Verifica se o restaurante existe
         const restaurant = await Restaurant.findById(restaurantId);
         if (!restaurant) {
             return res.status(404).json({ success: false, message: 'Restaurante não encontrado.' });
         }
 
-        // 3. Cria o pedido no banco de dados
         const newOrder = await Order.create({
             client: clientId,
             restaurant: restaurantId,
@@ -36,7 +33,6 @@ export const createOrder = async (req, res) => {
             status: 'Pedido Aceito' // Status inicial
         });
 
-        // Envia notificação em tempo real para o restaurante
 
         res.status(201).json({
             success: true,
@@ -64,8 +60,8 @@ export const listRestaurantOrders = async (req, res) => {
             // O restaurante pode listar pedidos com status que não sejam 'Entregue'
             status: { $ne: 'Entregue' } 
         })
-        .populate('client', 'name email') // Popula dados do cliente
-        .sort({ createdAt: -1 }); // Mais recentes primeiro
+        .populate('client', 'name email') 
+        .sort({ createdAt: -1 }); 
 
         res.status(200).json({
             success: true,
@@ -90,7 +86,6 @@ export const updateOrderStatus = async (req, res) => {
         const { status } = req.body;
         const restaurantId = req.user.id;
 
-        // Lista de status válidos para o restaurante
         const validStatuses = ['Pedido Aceito', 'Em Preparação', 'Pronto para Entrega', 'A Caminho', 'Entregue', 'Cancelado (Pelo Restaurante)'];
 
         if (!status || !validStatuses.includes(status)) {
@@ -103,11 +98,9 @@ export const updateOrderStatus = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Pedido não encontrado ou não pertence a este restaurante.' });
         }
         
-        // Atualiza o status do pedido
         order.status = status;
         await order.save();
 
-        // Opcional: Enviar notificação em tempo real para o cliente
 
         res.status(200).json({
             success: true,
