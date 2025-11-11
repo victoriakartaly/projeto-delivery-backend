@@ -40,22 +40,7 @@ const createUser = async (model, userData, role, res) => {
 };
 
 
-/**
- * @desc 
- * @route 
- * @access 
 
-
-    
-    
-;
-};
-
-/**
- * @desc 
- * @route 
- * @access 
- */
 export const getAllUsers = async (req, res) => {
     try {
         const users = await User.find().select('-password -__v');
@@ -69,11 +54,6 @@ export const getAllUsers = async (req, res) => {
     }
 };
 
-/**
- * @desc 
- * @route 
- * @access 
- */
 export const deleteUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
@@ -82,7 +62,7 @@ export const deleteUser = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Usuário não encontrado.' });
         }
         
-        // Admin não pode deletar a si mesmo
+    
         if (user._id.toString() === req.user.id) {
             return res.status(403).json({ success: false, message: 'O Admin não pode deletar a própria conta através desta rota.' });
         }
@@ -99,11 +79,7 @@ export const deleteUser = async (req, res) => {
     }
 };
 
-/**
- * @desc 
- * @route 
- * @access 
- */
+
 export const getAllRestaurants = async (req, res) => {
     try {
         const restaurants = await Restaurant.find().select('-password -__v');
@@ -117,11 +93,7 @@ export const getAllRestaurants = async (req, res) => {
     }
 };
 
-/**
- * @desc 
- * @route 
- * @access 
- */
+
 export const getAllOrders = async (req, res) => {
     try {
         const orders = await Order.find()
