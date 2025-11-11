@@ -1,6 +1,5 @@
 import Cart from "../models/cart.model.js";
 
-// Criar um item no carrinho
 export const createCartItem = async (req, res) => {
   try {
     const { product, quantity, price } = req.body;
@@ -11,7 +10,6 @@ export const createCartItem = async (req, res) => {
   }
 };
 
-// Listar todos os itens do carrinho
 export const getCartItems = async (req, res) => {
   try {
     const items = await Cart.find();
