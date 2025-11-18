@@ -1,8 +1,11 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.model.js';
+import User from '../models/user.model.js'; 
+import Restaurant from '../models/restaurant.model.js'; 
+import Employee from '../models/employee.model.js';
+
+
 import { generateToken } from '../middlewares/auth.middleware.js'; 
-
-
+ 
 const sendTokenResponse = (res, user, statusCode) => {
     const token = generateToken(user._id);
     res.status(statusCode).json({
@@ -11,50 +14,72 @@ const sendTokenResponse = (res, user, statusCode) => {
         email: user.email,
         role: user.role,
         token,
-        
         restaurantId: user.restaurantId || undefined 
     });
 };
 
 
 export const registerUser = async (req, res) => {
-    const { name, email, password, role, ...otherDetails } = req.body;
+    
+    const { 
+        name, 
+        email, 
+        password, 
+        role, 
+       
+        restaurantName, 
+        address, 
+        category, 
+        phone, 
+        cpf, 
+        jobTitle,
+        sector,
+        ...otherDetails 
+    } = req.body;
 
     try {
-       
+        
         const userExists = await User.findOne({ email });
         if (userExists) {
             return res.status(400).json({ message: 'E-mail já cadastrado.' });
         }
         
-        
-        let restaurant;
-        let userData = { name, email, password, role: role || 'client' }; 
+        const userData = { name, email, password, role: role || 'client' }; 
 
         if (userData.role === 'restaurant') {
             
-            restaurant = await Restaurant.create({ 
-                name: otherDetails.restaurantName,
-                address: otherDetails.address,
-                category: otherDetails.category,
-               
+            
+            const user = new User({ name, email, password, role: 'client' });
+            await user.save(); 
+
+            
+            const restaurant = await Restaurant.create({ 
+                name: restaurantName, 
+                address: address,
+                category: category,
+                phone: phone,
+                owner: user._id, 
             });
-           
-            userData.restaurantId = restaurant._id; 
-            userData.phone = otherDetails.phone;
+
+            
+            user.role = 'restaurant';
+            user.restaurantId = restaurant._id; 
+            await user.save(); 
+
+            sendTokenResponse(res, user, 201); 
+            return; 
+
         } else if (userData.role === 'employee' || userData.role === 'admin') {
+             
+            Object.assign(userData, { cpf, jobTitle, sector, phone, ...otherDetails });
             
-            Object.assign(userData, otherDetails);
+            const user = await User.create(userData);
+            sendTokenResponse(res, user, 201); 
+            return;
         }
 
+       
         const user = await User.create(userData);
-
-        if (restaurant) {
-            
-            restaurant.owner = user._id;
-            await restaurant.save();
-        }
-
         sendTokenResponse(res, user, 201); 
 
     } catch (error) {
