@@ -1,0 +1,17 @@
+* { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { margin: 0; background-color: #f0f2f5; }
+
+.container-center { display: flex; justify-content: center; align-items: center; height: 100vh; }
+.card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+input, select { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; }
+.btn-primary { width: 100%; padding: 10px; background: #5306a5; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+.btn-primary:hover { background: #5306a5; }
+.btn-link { background: none; border: none; color: #007bff; margin-top: 15px; cursor: pointer; text-decoration: underline; }
+.btn-logout { background: #dc3545; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+
+.dashboard { max-width: 800px; margin: 0 auto; padding: 20px; }
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.content { background: white; padding: 20px; border-radius: 8px; }
+.status-msg { margin-top: 15px; padding: 10px; background: #e8f5e9; color: #2e7d32; border-radius: 4px; }
+.error-msg { color: rgb(205, 14, 14); margin-bottom: 10px; }
+.extra-fields { background: #f8f9fa; padding: 10px; border-radius: 5px; margin-bottom: 10px; border: 1px solid #e9ecef; }
